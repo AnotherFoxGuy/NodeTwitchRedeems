@@ -1,14 +1,27 @@
 {
-  "name": "myobsremote",
+  "name": "TwitchRedeems",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "bin": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run copy_files & npm run bundle_exe",
+    "bundle_exe": "pkg .",
+    "copy_files": "node build.js"
   },
   "author": "Dark_JP_Fox",
   "license": "ISC",
+  "pkg": {
+    "scripts": "server.js",
+    "assets": [
+      "publicDashboard/*",
+      "publicRedeemsLeaderboard/*"
+    ],
+    "targets": [
+      "node16-win-x64"
+    ],
+    "outputPath": "dist"
+  },
   "dependencies": {
     "discord-webhook-node": "^1.1.8",
     "dotenv": "^16.0.0",
@@ -17,5 +30,8 @@
     "obs-websocket-js": "^5.0.0",
     "socket.io": "^4.4.1",
     "ws": "^8.5.0"
+  },
+  "devDependencies": {
+    "pkg": "^5.8.0"
   }
 }

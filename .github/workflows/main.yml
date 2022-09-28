@@ -1,0 +1,26 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  build-win:
+    name: Build TwitchRedeems for Windows
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Upload redist folder
+        uses: actions/upload-artifact@v3
+        with:
+          name: TwitchRedeems
+          path: dist
